@@ -1,0 +1,457 @@
+# Sistema Universal de Conversão e Análise de Arquivos SOR
+
+## Nome do Projeto
+
+**SOR Converter Pro**
+
+---
+
+# 1. Objetivo
+
+Desenvolver uma plataforma capaz de interpretar arquivos **.SOR (OTDR)** de diversos fabricantes, extrair todas as informações técnicas disponíveis e convertê-las para formatos amplamente utilizados, como PDF, Excel, CSV, JSON e XML.
+
+Além da conversão, o sistema deverá oferecer análise dos dados, geração automática de relatórios e disponibilização das informações por meio de uma API REST.
+
+---
+
+# 2. Problema
+
+Empresas de telecomunicações utilizam equipamentos OTDR para testar enlaces de fibra óptica.
+
+Cada equipamento gera arquivos **.SOR**, que são binários e de difícil interpretação sem o software do fabricante.
+
+Isso gera problemas como:
+
+* Dependência do software do fabricante.
+* Dificuldade em integrar dados com outros sistemas.
+* Geração manual de relatórios.
+* Pouca padronização.
+* Baixa automação.
+
+O sistema proposto eliminará essas limitações.
+
+---
+
+# 3. Objetivos
+
+## Objetivo Geral
+
+Criar uma plataforma universal para leitura, análise e conversão de arquivos .SOR.
+
+## Objetivos Específicos
+
+* Ler arquivos .SOR.
+* Identificar automaticamente o fabricante.
+* Interpretar estruturas binárias.
+* Extrair eventos da fibra.
+* Calcular perdas.
+* Gerar gráficos.
+* Exportar para diversos formatos.
+* Disponibilizar API REST.
+* Permitir integração com sistemas externos.
+* Criar histórico das medições.
+
+---
+
+# 4. Público-Alvo
+
+* Provedores de Internet.
+* Operadoras de Telecom.
+* Empresas de Engenharia.
+* Técnicos de Campo.
+* Empresas de Manutenção.
+* Centros de Operação de Rede (NOC).
+* Empresas de Monitoramento.
+
+---
+
+# 5. Tecnologias
+
+## Backend
+
+* Python
+* FastAPI
+
+## Banco de Dados
+
+* PostgreSQL
+* SQLite (desenvolvimento)
+
+## Front-end
+
+* React
+* HTML
+* CSS
+* JavaScript
+
+## Desktop (opcional)
+
+* PySide6
+
+## Bibliotecas Python
+
+* struct
+* pathlib
+* numpy
+* pandas
+* openpyxl
+* reportlab
+* matplotlib
+* pydantic
+* sqlalchemy
+
+---
+
+# 6. Arquitetura
+
+```
+Usuário
+      │
+      ▼
+Interface Web
+      │
+      ▼
+FastAPI
+      │
+      ▼
+Detector do Fabricante
+      │
+      ▼
+Parser Específico
+      │
+      ▼
+Modelo Unificado
+      │
+      ▼
+Banco de Dados
+      │
+      ├────────► PDF
+      ├────────► Excel
+      ├────────► CSV
+      ├────────► JSON
+      └────────► Dashboard
+```
+
+---
+
+# 7. Estrutura do Projeto
+
+```
+sor-converter/
+
+app/
+│
+├── api/
+├── parsers/
+├── services/
+├── models/
+├── schemas/
+├── database/
+├── exports/
+├── reports/
+├── uploads/
+├── utils/
+├── dashboard/
+├── tests/
+│
+main.py
+requirements.txt
+README.md
+```
+
+---
+
+# 8. Módulos
+
+## Upload
+
+Responsável pelo envio dos arquivos.
+
+Funções:
+
+* Upload individual.
+* Upload múltiplo.
+* Drag and Drop.
+* Validação.
+
+---
+
+## Detector
+
+Identifica automaticamente:
+
+* Fabricante.
+* Versão.
+* Estrutura.
+
+---
+
+## Parser
+
+Cada fabricante possuirá seu próprio parser.
+
+Exemplo:
+
+```
+parsers/
+
+exfo.py
+viavi.py
+anritsu.py
+yokogawa.py
+veex.py
+generic.py
+```
+
+Todos deverão gerar o mesmo modelo de saída.
+
+---
+
+## Modelo Padronizado
+
+Todos os parsers devem produzir um objeto único contendo:
+
+* Nome do arquivo
+* Fabricante
+* Modelo
+* Número de Série
+* Data
+* Comprimento de onda
+* Índice de refração
+* Alcance
+* Distância total
+* Atenuação
+* Perda Total
+* ORL
+* Eventos
+
+---
+
+# 9. Eventos
+
+Cada evento deve possuir:
+
+* Número
+* Tipo
+* Distância
+* Perda
+* Reflexão
+* Atenuação
+* Observação
+
+---
+
+# 10. Banco de Dados
+
+Tabela Arquivos
+
+* id
+* nome
+* fabricante
+* modelo
+* data
+* tamanho
+* usuário
+* upload
+
+Tabela Eventos
+
+* id
+* arquivo
+* tipo
+* distância
+* perda
+* reflexão
+
+---
+
+# 11. API REST
+
+## Upload
+
+POST /upload
+
+Enviar arquivo.
+
+---
+
+## Listar
+
+GET /arquivos
+
+Retorna todos.
+
+---
+
+## Arquivo
+
+GET /arquivo/{id}
+
+Detalhes completos.
+
+---
+
+## Eventos
+
+GET /arquivo/{id}/eventos
+
+Lista eventos.
+
+---
+
+## Exportar PDF
+
+GET /arquivo/{id}/pdf
+
+---
+
+## Exportar Excel
+
+GET /arquivo/{id}/excel
+
+---
+
+## Exportar CSV
+
+GET /arquivo/{id}/csv
+
+---
+
+## Exportar JSON
+
+GET /arquivo/{id}/json
+
+---
+
+## Dashboard
+
+GET /dashboard
+
+---
+
+# 12. Exportações
+
+O sistema deverá exportar para:
+
+* PDF
+* Excel
+* CSV
+* JSON
+* XML
+
+---
+
+# 13. Dashboard
+
+Indicadores:
+
+* Quantidade de arquivos.
+* Total de eventos.
+* Perda média.
+* Distância média.
+* Fabricantes.
+* Testes por período.
+* Mapa de eventos.
+* Histórico.
+
+---
+
+# 14. Relatórios
+
+Cada relatório deverá conter:
+
+* Logo da empresa.
+* Informações do teste.
+* Dados da fibra.
+* Eventos.
+* Tabela.
+* Gráfico da curva OTDR.
+* Assinatura.
+* QR Code (opcional).
+
+---
+
+# 15. Segurança
+
+* Login.
+* JWT.
+* Controle de acesso.
+* Registro de auditoria.
+* Histórico de operações.
+
+---
+
+# 16. Funcionalidades Futuras
+
+* Conversão em lote.
+* Arrastar múltiplos arquivos.
+* Processamento paralelo.
+* OCR de relatórios antigos.
+* Integração com Power BI.
+* API pública.
+* Aplicativo Android.
+* Aplicativo iOS.
+* Cliente Desktop.
+* Backup automático.
+* Integração com SharePoint.
+* Envio automático por e-mail.
+* Geração de laudos personalizados.
+* IA para interpretação de falhas.
+* Comparação entre medições da mesma fibra.
+
+---
+
+# 17. Roadmap
+
+### Fase 1
+
+* Estrutura do projeto.
+* FastAPI.
+* Upload.
+* Banco de dados.
+* Parser básico.
+
+### Fase 2
+
+* Leitura completa do padrão SOR.
+* Extração dos eventos.
+* Exportação para JSON.
+
+### Fase 3
+
+* PDF.
+* Excel.
+* CSV.
+* Dashboard.
+
+### Fase 4
+
+* Login.
+* API pública.
+* Processamento em lote.
+
+### Fase 5
+
+* IA.
+* Comparação automática de testes.
+* Aplicativo Desktop.
+* Aplicativo Mobile.
+
+---
+
+# 18. Diferenciais
+
+* Suporte a múltiplos fabricantes.
+* Modelo de dados unificado.
+* API REST para integração.
+* Relatórios personalizados.
+* Dashboard em tempo real.
+* Processamento em lote.
+* Arquitetura modular para adicionar novos parsers.
+* Código preparado para crescimento e manutenção.
+
+---
+
+# 19. Objetivo Final
+
+Ser uma plataforma completa para leitura, análise, conversão, armazenamento e integração de arquivos **.SOR**, permitindo que empresas de telecomunicações processem automaticamente medições OTDR de diferentes fabricantes em uma única solução, eliminando a dependência de softwares proprietários e facilitando a geração de relatórios, integrações e análises técnicas.
