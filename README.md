@@ -1,3 +1,6 @@
+Logica/passos
+2 meses para completar 19/07 - 20/09
+
 Frontend
 
 ↓
@@ -63,5 +66,3 @@ Interface React.
 Dashboard.
 Autenticação.
 Docker e deploy.
-
-Se seguir essa sequência, você terá um produto funcional desde cedo e poderá evoluí-lo de forma organizada, sem precisar reescrever grandes partes do sistema.
